@@ -3,6 +3,8 @@ from sqlalchemy import func
 from model import Book, User, Genre, BookUser, BookGenre, connect_to_db, db
 # Meeting, UserMeeting,
 from server import app
+import requests
+from data.keys.secret_keys import nytimes
 
 
 def load_users():
@@ -133,6 +135,21 @@ def load_bookgenre():
 #         db.session.add(new_usermeeting)
 #     db.session.commit()
 
+def get_bestsellers():
+    """Get bestseller history from NYT Books API"""
+
+    payload = {'api-key': nytimes.key}
+
+    r = requests.get(
+        'https://api.nytimes.com/svc/books/v3/lists/best-sellers/history.json', params=payload)
+
+    r = r.json()
+
+    for result in r["results"]:
+        new_book = Book(title=result["title"], author=result["author"])
+        db.session.add(new_book)
+    db.session.commit()
+
 
 if __name__ == "__main__":
     connect_to_db(app)
@@ -151,3 +168,5 @@ if __name__ == "__main__":
     load_bookgenre()
     # load_meetings()
     # load_user_meetings()
+
+    get_bestsellers()
