@@ -1,0 +1,205 @@
+/* General Use */
+
+.btn {
+  padding: 2px 10px;
+  background-color: #177e89;
+  border-color: #177e89;
+}
+h2 {
+  text-align: center;
+}
+body {
+  background-color: #084c61;
+}
+a {
+  color: #dfdce3;
+  font-weight: 600;
+}
+
+/* Cover Image */
+
+.imgBackground {
+  margin-top: 15px;
+  position: relative;
+  height: 450px;
+  background-color: white;
+  border-radius: 25px;
+}
+.header {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+.Home {
+  background: url(https://cdn5.teebooks.com/3611-large_default/bookshelves-u-set-of-6.jpg);
+  background-size: cover;
+  -webkit-text-fill-color: #084c61;
+  -webkit-text-stroke-width: 0.25px;
+  -webkit-text-stroke-color: #323031;
+  font-weight: 500;
+  font-size: 25px;
+  border-radius: 25px;
+  height: 100%;
+  opacity: 0.5;
+}
+.Cover {
+  padding-top: 70px;
+}
+.Title {
+  font-size: 90px;
+  -webkit-text-fill-color: #084c61;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #323232;
+}
+.quote {
+  display: inline-flex;
+  align-content: center;
+  font-size: 30px;
+  -webkit-text-fill-color: #323031;
+  -webkit-text-stroke-width: 0.25px;
+  -webkit-text-stroke-color: #dfdce3;
+  padding-top: 15px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+/* Registration/Login */
+
+.RegistrationLogin {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #177e89;
+  display: inline-block;
+  width: 50%;
+  color: #dfdce3;
+  border: 3px;
+  border-radius: 25px;
+  border-style: solid;
+  border-color: #323031;
+}
+.btnSignIn {
+  color: #323031;
+  background-color: #ffc857;
+  border: 1px;
+  border-style: solid;
+  border-color: #084c61;
+}
+
+/* Your Library */
+.BookList {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #323031;
+  padding: 25px;
+  display: inline-block;
+  color: #dfdce3;
+  border: 3px;
+  border-radius: 25px;
+  border-color: #084c61;
+}
+.bookInfo {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #177e89;
+  border-color: #db3a34;
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 75%;
+  display: inline-block;
+  color: #323031;
+}
+.bookCols {
+  padding-left: 120px;
+}
+
+.trashButton {
+  background-color: #db3a34;
+  -webkit-text-fill-color: #323031;
+  border: #323031;
+  padding: 0px 5px;
+  cursor: pointer;
+  margin-top: 3px;
+  margin-right: 6px;
+  margin-left: 3px;
+  margin-bottom: 3px;
+}
+.updateButton {
+  background-color: #177e89;
+  -webkit-text-fill-color: #ffc857;
+  padding: 0px 5px;
+  border: #323031;
+  cursor: pointer;
+  margin: 3px;
+}
+.saveBtn {
+  -webkit-text-fill-color: #dfdce3;
+}
+
+.updateFormBtn {
+  background-color: #084c61;
+  border-color: #084c61;
+  margin: 3px;
+}
+.updateForm {
+  padding: 20px;
+  margin: 10px;
+  border: 2px;
+  background-color: #b4b3b4;
+  border-style: solid;
+  border-color: #ffc857;
+  border-radius: 25px;
+}
+
+/* User Library*/
+
+.userShelf {
+  margin-bottom: 30px;
+  color: #177e89;
+}
+.userList {
+  margin-top: 30px;
+  padding-top: 5px;
+  padding-right: 50px;
+  padding-left: 30px;
+  background-color: #b4b3b4;
+  width: 50%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #ffc857;
+  border-radius: 25px;
+  color: #323031;
+  display: inline-block;
+}
+.userBtn {
+  margin: 10px;
+}
+.userBooks {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #323031;
+  padding: 25px;
+  display: inline-block;
+  color: #dfdce3;
+  border: 3px;
+  border-style: solid;
+  border-radius: 25px;
+  border-color: #ffc857;
+  width: 50%;
+  padding-left: 50px;
+}
+.fa-book {
+  color: #db3a34;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+/* colors {
+	color: #fe5f55
+	color: #2f93b5
+	color: #1d3356
+} */

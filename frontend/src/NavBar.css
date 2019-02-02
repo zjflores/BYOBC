@@ -1,0 +1,32 @@
+.navbar-nav {
+  flex-direction: row;
+}
+.mynav > li {
+  padding: 15px;
+}
+.navlink {
+  font-size: 25px;
+  color: #323031;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.mynav li a {
+  color: #1c330a;
+  font-weight: 600;
+}
+.logoutPosition {
+  display: inline-flex;
+  align-content: flex-end;
+}
+.logoutBtn {
+  font-size: 25px;
+  background-color: #ffc857;
+  border-style: solid;
+  border-color: #177e89;
+  border-width: 3px;
+  color: #323031;
+}
+.logoutBtn a {
+  color: #323031;
+}
