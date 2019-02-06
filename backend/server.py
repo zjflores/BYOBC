@@ -5,14 +5,17 @@ from flask_api import status
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
 from model import User, Book, BookUser, Genre, BookGenre, connect_to_db, db
-from data.keys.secret_keys import flask
+from data.keys.secret_keys import flask, overdrive
 from random import choice
+import requests
+# from flask_oauthlib.provider import OAuth2Provider
 
 ################################################################################
 ################################# SETUP ####################################### 
 ################################################################################
 
 app = Flask(__name__)
+# oauth = OAuth2Provider(app)
 cors = CORS(app, resources={
     r"/*": {r"supports_credentials": True, r"origins": r"http://localhost:3000"}})
 
@@ -465,6 +468,34 @@ def get_user_books():
             {'title': book.title, 'author': book.author, 'id': book.id})
     print(books)
     return jsonify(books)
+
+
+################################################################################
+################################# API CALLS ####################################
+################################################################################
+# @app.route('/check-library' methods=['POST'])
+# @cross_origin()
+# def check_overdrive():
+#     """Check if title available at library"""
+#     # data = request.get_json()
+#     # print(data)
+
+#     # book = Book.query.get(data['id'])
+
+#     keys = '{}:{}'.format(overdrive.key, overdrive.secret)
+#     print(keys)
+#     auth = base64.b64encode(keys)
+#     print(auth)
+
+#     headers = {'Authorization': auth, 
+#     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}
+#     payload = {'grant_type', 'client_credentials'} 
+
+#     r = request.post("https://oauth.overdrive.com/token", headers=headers, data=payload)
+
+#     print(r.url)
+
+
 
 
 if __name__ == "__main__":
