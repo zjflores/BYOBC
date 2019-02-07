@@ -15,6 +15,8 @@ class BookInfo extends Component {
       endDate: 'No date given',
       authorized: false,
       readers: [],
+      available: false,
+      clickedCheck: false,
     }
     this.getAuthorization = this.getAuthorization.bind(this)
     this.getTitle = this.getTitle.bind(this)
@@ -23,7 +25,36 @@ class BookInfo extends Component {
     this.getStartDate = this.getStartDate.bind(this)
     this.getEndDate = this.getEndDate.bind(this)
     this.getReaders = this.getReaders.bind(this)
+    this.checkAvailability = this.checkAvailability.bind(this)
   }
+
+  checkAvailability() {
+    this.setState({ clickedCheck: true })
+
+    fetch('http://localhost:5000/check-library', {
+      method: 'POST',
+      mode: 'cors', // no-cors, cors, *same-origin
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        // "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: JSON.stringify({
+        id: this.props.match.params.bookId,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+
+        this.setState({ available: data.available })
+      })
+      .catch(error => console.error(error))
+      .finally(() => {
+        this.setState({ clickedCheck: false })
+      })
+  }
+
   getTitle() {
     fetch('http://localhost:5000/get-title', {
       method: 'POST',
@@ -244,6 +275,18 @@ class BookInfo extends Component {
                   </div>
                 )
               })}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <h3>Check if {this.state.title} is available on Overdrive?</h3>
+              {/* Render button if not clicked render results if clicked */}
+              <Button onClick={this.checkAvailability}>Click Me</Button>
+            </Col>
+            <Col>
+              {/* Only render if it's not your user id */}
+              <h3> Add this title to your library?</h3>
+              <Button>Click Me</Button>
             </Col>
           </Row>
           <br />

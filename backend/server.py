@@ -8,6 +8,7 @@ from model import User, Book, BookUser, Genre, BookGenre, connect_to_db, db
 from data.keys.secret_keys import flask, overdrive
 from random import choice
 import requests
+import base64
 # from flask_oauthlib.provider import OAuth2Provider
 
 ################################################################################
@@ -473,29 +474,74 @@ def get_user_books():
 ################################################################################
 ################################# API CALLS ####################################
 ################################################################################
-# @app.route('/check-library' methods=['POST'])
-# @cross_origin()
-# def check_overdrive():
-#     """Check if title available at library"""
-#     # data = request.get_json()
-#     # print(data)
 
-#     # book = Book.query.get(data['id'])
+@app.route('/check-library', methods=['POST'])
+@cross_origin()
 
-#     keys = '{}:{}'.format(overdrive.key, overdrive.secret)
-#     print(keys)
-#     auth = base64.b64encode(keys)
-#     print(auth)
+def check_overdrive():
+    """Check if title available at library"""
+    data = request.get_json()
+    print(data)
 
-#     headers = {'Authorization': auth, 
-#     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}
-#     payload = {'grant_type', 'client_credentials'} 
+    book = Book.query.get(data['id'])
+    title = book.title
 
-#     r = request.post("https://oauth.overdrive.com/token", headers=headers, data=payload)
+    keys = '{}:{}'.format(overdrive.key, overdrive.secret)
+    encoded = base64.b64encode(keys.encode('utf8'))
+    formatted = b'Basic ' + encoded
 
-#     print(r.url)
+    headers = {b'Authorization': formatted,
+               b'Content-Type': b'application/x-www-form-urlencoded;charset=UTF-8'}
+    # payload = {b'grant_type', b'client_credentials'}
+    payload = b'grant_type=client_credentials'
+
+    r = requests.post(b"https://oauth.overdrive.com/token",
+                      headers=headers, data=payload)
+
+    response = r.json()
+
+    return search_overdrive(response, title)
 
 
+def search_overdrive(response, title):
+    """Searches Overdrive API for title"""
+
+    token = response['access_token']
+    token = token.encode('utf8')
+    auth_token = b'Bearer ' + token
+    headers = {b'Authorization': auth_token}
+
+    payload = {b'q': title.encode('utf8')}
+    r = requests.get(
+        b'https://api.overdrive.com/v1/collections/v1L1BBQ0AAA2_/products',
+        headers=headers, params=payload)
+
+    returned = r.json()
+    for product in returned['products']:
+        if product['mediaType'] == 'eBook':
+            url = product['links']['availability']['href']
+            return check_availability(headers, url)
+        else:
+            return jsonify({'available': 'false' })
+
+
+def check_availability(headers, url):
+    """Checks availability of title in library"""
+
+    url = url.encode('utf8')
+
+    r = requests.get(url, headers=headers)
+    response = r.json()
+
+    availability = {
+        'available': response['available'],
+        'availabilityType': response['availabilityType'],
+        'copiesOwned': response['copiesOwned'],
+        'copiesAvailable': response['copiesAvailable'],
+        'numberOfHolds': response['numberOfHolds']
+    }
+
+    return jsonify(availability)
 
 
 if __name__ == "__main__":

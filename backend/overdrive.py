@@ -12,14 +12,12 @@ def check_overdrive():
     # book = Book.query.get(data['id'])
 
     keys = '{}:{}'.format(overdrive.key, overdrive.secret)
-    print(keys)
     encoded = base64.b64encode(keys.encode('utf8'))
     formatted = b'Basic ' + encoded
-    print(encoded)
 
     headers = {b'Authorization': formatted,
                b'Content-Type': b'application/x-www-form-urlencoded;charset=UTF-8'}
-    # payload = {b'grant_type', b'client_credentials'}
+
     payload = b'grant_type=client_credentials'
 
     r = requests.post(b"https://oauth.overdrive.com/token",
@@ -35,11 +33,30 @@ def search_overdrive(response):
     token = token.encode('utf8')
     auth_token = b'Bearer ' + token
     headers = {b'Authorization': auth_token}
-    payload = {b'q': b'The Adventure of Sherlock Holmes'}
+    title = b'The Adventures of Sherlock Holmes'
+    payload = {b'q': title}
     r = requests.get(
         b'https://api.overdrive.com/v1/collections/v1L1BBQ0AAA2_/products',
         headers=headers, params=payload)
 
     returned = r.json()
-    # returned["products"][0]
-    print(returned)
+    # print(returned)
+    for product in returned['products']:
+        # print(product)
+        if product['mediaType'] == 'eBook':
+
+            print(product['title'].lower())
+            print(title.lower())
+            url = product['links']['availability']['href']
+            print(url)
+            check_availability(headers, url)
+        else:
+            print("Not available")
+
+
+def check_availability(headers, url):
+
+    url = url.encode('utf8')
+
+    r = requests.get(url, headers=headers)
+    print(r.json())
