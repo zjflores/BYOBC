@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { NavLink } from 'react-router-dom'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import './Base.css'
 
 class BookInfo extends Component {
@@ -18,7 +18,9 @@ class BookInfo extends Component {
       available: false,
       clickedCheck: false,
       clickedAdd: false,
+      library: '2931',
     }
+    this.handleSelect = this.handleSelect.bind(this)
     this.getAuthorization = this.getAuthorization.bind(this)
     this.getTitle = this.getTitle.bind(this)
     this.getName = this.getName.bind(this)
@@ -30,7 +32,11 @@ class BookInfo extends Component {
     this.addTitle = this.addTitle.bind(this)
   }
 
-  checkAvailability() {
+  handleSelect(event) {
+    this.setState({ library: event.target.value })
+  }
+  checkAvailability(event) {
+    event.preventDefault()
     this.setState({ clickedCheck: true })
 
     fetch('http://localhost:5000/check-library', {
@@ -42,7 +48,8 @@ class BookInfo extends Component {
         // "Content-Type": "application/x-www-form-urlencoded",
       },
       body: JSON.stringify({
-        id: this.props.match.params.bookId,
+        library_code: this.state.library,
+        title: this.state.title,
       }),
     })
       .then(response => response.json())
@@ -250,8 +257,6 @@ class BookInfo extends Component {
     this.getReaders()
   }
   render() {
-    console.log('######### lol', this.state)
-
     return (
       <Container>
         <div className="bookInfo">
@@ -300,29 +305,8 @@ class BookInfo extends Component {
               })}
             </Col>
           </Row>
-          <Row>
-            <Col>
-              <h3>Check if {this.state.title} is available on Overdrive?</h3>
-              {/* Render button if not clicked render results if clicked */}
-              {this.state.available ? (
-                <span>it is</span>
-              ) : (
-                <Button className="btnSignIn" onClick={this.checkAvailability}>
-                  Click Me
-                </Button>
-              )}
-              {this.state.clickedCheck && <span>loading...</span>}
-            </Col>
-            <Col>
-              {/* Only render if it's not your user id */}
-              <h3> Add this title to your library?</h3>
-              <Button className="btnSignIn" onClick={this.addTitle}>
-                Click Me
-              </Button>
-            </Col>
-          </Row>
           <br />
-          {this.state.authorized && (
+          {this.state.authorized ? (
             <div>
               <h3> Want to add more info?</h3>
               <NavLink
@@ -336,6 +320,44 @@ class BookInfo extends Component {
               </NavLink>
               <br />
             </div>
+          ) : (
+            <Row>
+              <Col>
+                <h3>
+                  Check <img src="/OverDrive_Logo.png" alt="OverDrive Logo" />{' '}
+                </h3>
+                {/* Render button if not clicked render results if clicked */}
+                <Form onSubmit={this.checkAvailability}>
+                  <Form.Group controlId="library">
+                    <Form.Label>Choose a Library</Form.Label>
+                    <Form.Control
+                      as="select"
+                      value={this.state.library}
+                      onChange={this.handleSelect}
+                    >
+                      <option value="2931">Berkeley</option>
+                      <option value="2094">Oakland</option>
+                      <option value="1683">San Francisco</option>
+                    </Form.Control>
+                  </Form.Group>
+                  <Button
+                    type="Submit"
+                    className="btnSignIn"
+                    onClick={this.checkAvailability}
+                  >
+                    Submit
+                  </Button>
+                </Form>
+                {this.state.clickedCheck && <span>loading...</span>}
+              </Col>
+              <Col>
+                {/* Only render if it's not your user id */}
+                <h3> Add this title to your library?</h3>
+                <Button className="btnSignIn" onClick={this.addTitle}>
+                  Click Me
+                </Button>
+              </Col>
+            </Row>
           )}
           <br />
         </div>

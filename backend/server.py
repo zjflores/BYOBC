@@ -496,8 +496,8 @@ def check_overdrive():
     data = request.get_json()
     print(data)
 
-    book = Book.query.get(data['id'])
-    title = book.title
+    title = data['title']
+    library_code = data['library_code']
 
     keys = '{}:{}'.format(overdrive.key, overdrive.secret)
     encoded = base64.b64encode(keys.encode('utf8'))
@@ -513,45 +513,62 @@ def check_overdrive():
 
     response = r.json()
 
-    return search_overdrive(response, title)
+    return find_library_collection(response, title, library_code)
 
+def find_library_collection(response, title, library_code):
+    """Get a library's collection token"""
 
-def search_overdrive(response, title):
-    """Searches Overdrive API for title"""
-
+    print("I am checking the collections")
     token = response['access_token']
     token = token.encode('utf8')
     auth_token = b'Bearer ' + token
     headers = {b'Authorization': auth_token}
 
+    url = b'https://api.overdrive.com/v1/libraries/' + library_code.encode('utf8')
+
+    r = requests.get(url, headers=headers)
+
+    response = r.json()
+    print(response)
+
+    url = response['links']['products']['href']
+
+    return search_overdrive(headers, title, url)
+
+def search_overdrive(headers, title, url):
+    """Searches Overdrive API for title"""
+
     payload = {b'q': title.encode('utf8')}
-    r = requests.get(
-        b'https://api.overdrive.com/v1/collections/v1L1BBQ0AAA2_/products',
-        headers=headers, params=payload)
+    url = url.encode('utf8')
+    r = requests.get(url, headers=headers, params=payload)
 
     returned = r.json()
-    for product in returned['products']:
-        if product['mediaType'] == 'eBook':
-            url = product['links']['availability']['href']
-            return check_availability(headers, url)
-        else:
-            return jsonify({'available': 'false' })
+    print(returned)
+    if returned['totalItems'] > 0:
+        for product in returned['products']:
+            if product['mediaType'] == 'eBook':
+                url = product['links']['availability']['href']
+                link = product['contentDetails']['href']
+                return check_availability(headers, url, link)
+    return jsonify({'available': 'false' })
 
 
-def check_availability(headers, url):
+def check_availability(headers, url, link):
     """Checks availability of title in library"""
 
     url = url.encode('utf8')
 
     r = requests.get(url, headers=headers)
     response = r.json()
+    print(response)
 
     availability = {
         'available': response['available'],
         'availabilityType': response['availabilityType'],
         'copiesOwned': response['copiesOwned'],
         'copiesAvailable': response['copiesAvailable'],
-        'numberOfHolds': response['numberOfHolds']
+        'numberOfHolds': response['numberOfHolds'],
+        'link': link
     }
 
     return jsonify(availability)
