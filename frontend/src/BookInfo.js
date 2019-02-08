@@ -17,6 +17,7 @@ class BookInfo extends Component {
       readers: [],
       available: false,
       clickedCheck: false,
+      clickedAdd: false,
     }
     this.getAuthorization = this.getAuthorization.bind(this)
     this.getTitle = this.getTitle.bind(this)
@@ -26,6 +27,7 @@ class BookInfo extends Component {
     this.getEndDate = this.getEndDate.bind(this)
     this.getReaders = this.getReaders.bind(this)
     this.checkAvailability = this.checkAvailability.bind(this)
+    this.addTitle = this.addTitle.bind(this)
   }
 
   checkAvailability() {
@@ -53,6 +55,27 @@ class BookInfo extends Component {
       .finally(() => {
         this.setState({ clickedCheck: false })
       })
+  }
+
+  addTitle() {
+    fetch('http://localhost:5000/add-title', {
+      method: 'POST',
+      mode: 'cors', // no-cors, cors, *same-origin
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        // "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: JSON.stringify({
+        id: this.props.match.params.bookId,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        this.setState({ title: data })
+      })
+      .catch(error => console.error(error))
   }
 
   getTitle() {
@@ -281,12 +304,21 @@ class BookInfo extends Component {
             <Col>
               <h3>Check if {this.state.title} is available on Overdrive?</h3>
               {/* Render button if not clicked render results if clicked */}
-              <Button onClick={this.checkAvailability}>Click Me</Button>
+              {this.state.available ? (
+                <span>it is</span>
+              ) : (
+                <Button className="btnSignIn" onClick={this.checkAvailability}>
+                  Click Me
+                </Button>
+              )}
+              {this.state.clickedCheck && <span>loading...</span>}
             </Col>
             <Col>
               {/* Only render if it's not your user id */}
               <h3> Add this title to your library?</h3>
-              <Button>Click Me</Button>
+              <Button className="btnSignIn" onClick={this.addTitle}>
+                Click Me
+              </Button>
             </Col>
           </Row>
           <br />

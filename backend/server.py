@@ -396,7 +396,20 @@ def set_end_date():
     db.session.commit()
     return jsonify("End date added")
 
-############################ BOOK CRUD CYCLE ###################################
+########################### ADDITIONAL BOOK ROUTES #############################
+@app.route('/add-title', methods=['POST'])
+@cross_origin()
+def add_title():
+    """Add a title from another user's library to yours"""
+    data = request.get_json()
+    print(data)
+
+    new_book = BookUser(user_id=session['user_id'], book_id= data['id'])
+    db.session.add(new_book)
+    db.session.commit()
+    return jsonify("Book added to your library")
+
+
 @app.route('/get-readers', methods=['POST'])
 @cross_origin()
 def get_readers():
