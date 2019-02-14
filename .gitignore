@@ -5,6 +5,9 @@ keys/
 secret_keys.py
 *secret*
 secret*
+.pytest-env
+.pytest_cache
+.vscode
 __pycache__
 # create react app .gitignore
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
