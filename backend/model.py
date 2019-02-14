@@ -92,59 +92,6 @@ class BookUser(db.Model):
             self.id, self.user_id, self.book_id)
 
 
-# class Meeting(db.Model):
-#     """Meetings added to the db"""
-
-#     __tablename__ = "meetings"
-#     id = db.Column(db.Integer,
-#                    autoincrement=True,
-#                    primary_key=True)
-#     month = db.Column(db.String(9))
-#     year = db.Column(db.Integer)
-
-#     def __repr__(self):
-#         return "<Meeting id={} month={} year={}>".format(
-#             self.id, self.month, self.year)
-
-
-# class UserMeeting(db.Model):
-#     """Users at a Meeting"""
-
-#     __tablename__ = "user_meetings"
-#     id = db.Column(db.Integer,
-#                    autoincrement=True,
-#                    primary_key=True)
-#     user_id = db.Column(db.Integer,
-#                         db.ForeignKey('users.id'),
-#                         nullable=False)
-#     meeting_id = db.Column(db.Integer,
-#                            db.ForeignKey('meetings.id'),
-#                            nullable=False)
-
-#     def __repr__(self):
-#         return "<UserMeeting id={} user_id={} meeting_id={}>".format(
-#             self.id, self.user_id, self.meeting_id)
-
-
-# class MeetingBook(db.Model):
-#     """Books at a Meeting"""
-
-#     __tablename__ = "meeting_books"
-#     id = db.Column(db.Integer,
-#                    autoincrement=True,
-#                    primary_key=True)
-#     meeting_id = db.Column(db.Integer,
-#                            db.ForeignKey('meetings.id'),
-#                            nullable=False)
-#     book_id = db.Column(db.Integer,
-#                         db.ForeignKey('books.id'),
-#                         nullable=False)
-
-#     def __repr__(self):
-#         return "<MeetingBook id={} meeting_id={} book_id{}>".format(
-#             self.id, self.meeting_id, self.book_id)
-
-
 ##############################################################################
 # Helper functions
 
