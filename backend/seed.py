@@ -1,7 +1,6 @@
 import csv
 from sqlalchemy import func
 from model import Book, User, Genre, BookUser, BookGenre, connect_to_db, db
-# Meeting, UserMeeting,
 from server import app
 import requests
 from data.keys.secret_keys import nytimes
@@ -99,42 +98,6 @@ def load_bookgenre():
     db.session.commit()
 
 
-# def load_meetings():
-#     """Load meetings into db"""
-
-#     print("Meetings")
-
-#     # Delete row to avoid duplicates
-#     Meeting.query.delete()
-
-#     meeting_rows = csv.DictReader(open('data/meetings.csv'))
-
-#     for meeting in meeting_rows:
-#         new_meeting = Meeting(month=meeting["month"],
-#                               year=meeting["year"])
-#         db.session.add(new_meeting)
-#     db.session.commit()
-
-
-# def load_user_meetings():
-#     """Load a user's meeting attendance into db"""
-
-#     print("UserMeeting")
-
-#     # Delete row to avoid duplicates
-#     UserMeeting.query.delete()
-
-#     usermeeting_rows = csv.DictReader(open('data/usermeeting.csv'))
-
-#     for usermeeting in usermeeting_rows:
-#         user = User.query.filter(User.name == usermeeting["name"]).one()
-#         meeting = Meeting.query.filter((Meeting.month == usermeeting["month"]) & (Meeting.year == usermeeting["year"])).one()
-
-#         new_usermeeting = UserMeeting(user_id=user.id,
-#                                       meeting_id=meeting.id)
-#         db.session.add(new_usermeeting)
-#     db.session.commit()
-
 def get_bestsellers():
     """Get bestseller history from NYT Books API"""
 
@@ -166,7 +129,4 @@ if __name__ == "__main__":
     load_genres()
     load_user_books()
     load_bookgenre()
-    # load_meetings()
-    # load_user_meetings()
-
     get_bestsellers()
