@@ -60,6 +60,7 @@ class Book extends Component {
         console.log(data)
         this.props.onBookUpdate(
           this.props.bookId,
+          data.id,
           this.state.newTitle,
           this.state.newAuthor
         )

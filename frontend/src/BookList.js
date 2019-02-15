@@ -30,12 +30,12 @@ class BookList extends React.Component {
     this.setState({ books: newBooks })
   }
 
-  onBookUpdate(bookId, newTitle, newAuthor) {
+  onBookUpdate(oldBookId, newBookId, newTitle, newAuthor) {
     // Object.assign({}, this.state.books)
     const updatedBooks = this.state.books.filter(book => {
-      return book.id !== bookId
+      return book.id !== oldBookId
     })
-    updatedBooks.push({ title: newTitle, author: newAuthor, id: bookId })
+    updatedBooks.push({ title: newTitle, author: newAuthor, id: newBookId })
     this.setState({ books: updatedBooks })
   }
 
