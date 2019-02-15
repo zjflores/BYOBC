@@ -46,6 +46,8 @@ class AddBook extends Component {
           this.state.author,
           this.state.bookId
         )
+        this.setState({author:''})
+        this.setState({title:''})
       })
       .catch(error => console.error(error))
   }
