@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import UniqueConstraint
+from sqlalchemy import UniqueConstraint, create_engine
+from sqlalchemy_utils import database_exists, create_database
 from data.keys.secret_keys import postgres
 db = SQLAlchemy()
 
@@ -100,8 +101,13 @@ def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     # Configure to use our PstgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@localhost/books'.format(
-        postgres.key, postgres.secret)
+    uri = 'postgresql://{}:{}@localhost/books'
+    uri = uri.format(postgres.key, postgres.secret)
+
+    if not database_exists(uri):
+        create_database(uri)
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
