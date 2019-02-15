@@ -1,5 +1,4 @@
 import csv
-from sqlalchemy import func
 from model import Book, User, Genre, BookUser, BookGenre, connect_to_db, db
 from server import app
 import requests
