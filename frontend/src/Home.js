@@ -30,7 +30,7 @@ class Home extends Component {
               onLogout={this.props.onLogout}
             />
             <div className="Cover">
-              <h1 className="Title">Build Your Own Book Club</h1>
+              <h1 className="Title">Bring Your Own Book Club</h1>
               <p className="quote">{this.state.quote}</p>
             </div>
           </div>

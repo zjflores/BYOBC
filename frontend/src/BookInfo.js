@@ -291,6 +291,111 @@ class BookInfo extends Component {
                 <h3>You finished this book on:</h3>
               </Row>
               <Row>{this.state.endDate}</Row>
+              {!this.state.authorized && (
+                <Row>
+                  <Col>
+                    <Row>
+                      <h3>
+                        Check{' '}
+                        <img
+                          className="overdriveLogo"
+                          src="/OverDrive_Logo.png"
+                          alt="OverDrive Logo"
+                        />
+                      </h3>
+                    </Row>
+                    <Form onSubmit={this.checkAvailability}>
+                      <Row>
+                        <Form.Group
+                          className="overdriveForm"
+                          controlId="library"
+                        >
+                          <Form.Label>Choose a Library: </Form.Label>
+                          <Form.Control
+                            as="select"
+                            value={this.state.library}
+                            onChange={this.handleSelect}
+                          >
+                            <option value="2931">Berkeley</option>
+                            <option value="2094">Oakland</option>
+                            <option value="1683">San Francisco</option>
+                          </Form.Control>
+                          <Button
+                            type="Submit"
+                            className="btnSignIn"
+                            onClick={this.checkAvailability}
+                            block
+                          >
+                            Submit
+                          </Button>
+                        </Form.Group>
+                      </Row>
+                    </Form>
+
+                    <br />
+                    {this.state.clickedCheck && <Row>loading...</Row>}
+                    {this.state.overDriveData &&
+                      !this.state.clickedCheck &&
+                      !this.state.availabilityType && (
+                        <Row>
+                          {this.state.title} is not available at your library
+                        </Row>
+                      )}
+                    {this.state.overDriveData &&
+                      !this.state.clickedCheck &&
+                      this.state.availabilityType && (
+                        <div>
+                          {this.state.available ? (
+                            <Row>
+                              <Col>
+                                <Row>{this.state.title} is available</Row>
+                                <Row>
+                                  Click
+                                  <a
+                                    className="overdriveLink"
+                                    href={this.state.link}
+                                  >
+                                    here
+                                  </a>
+                                  to check it out
+                                </Row>
+                              </Col>
+                            </Row>
+                          ) : (
+                            <Row>
+                              <Col>
+                                <Row>
+                                  {this.state.title} is not currently available
+                                </Row>
+                                <Row>
+                                  Click
+                                  <a
+                                    className="overdriveLink"
+                                    href={this.state.link}
+                                  >
+                                    here
+                                  </a>
+                                  to place a hold
+                                </Row>
+                              </Col>
+                            </Row>
+                          )}
+                          <Row>
+                            <Col>
+                              <Row>Copies Owned: {this.state.copiesOwned}</Row>
+                              <Row>
+                                Copies Available: {this.state.copiesAvailable}
+                              </Row>
+                              <Row>
+                                Number of Holds: {this.state.numberOfHolds}
+                              </Row>
+                            </Col>
+                          </Row>
+                        </div>
+                      )}
+                  </Col>
+                </Row>
+              )}
             </Col>
             <Col lg={6}>
               <Row>
@@ -309,121 +414,47 @@ class BookInfo extends Component {
               {this.state.readers.map(reader => {
                 return (
                   <div key={reader.id}>
-                    <Row>
-                      {/* <NavLink
-                        to={`/user/${reader.id}/book/${
-                          this.props.match.params.bookId
-                        }`}
-                      >
-                        {reader.name}
-                      </NavLink> */}
-                      {reader.name}
-                    </Row>
+                    <Row>{reader.name}</Row>
                   </div>
                 )
               })}
+              {!this.state.authorized && (
+                <Row>
+                  <Col>
+                    <Row>
+                      <h3> Add this title to your library?</h3>
+                    </Row>
+                    {this.state.clickedAdd ? (
+                      <Row>Book has been added to your library</Row>
+                    ) : (
+                      <Row>
+                        <Button className="btnSignIn" onClick={this.addTitle}>
+                          Click Me
+                        </Button>
+                      </Row>
+                    )}
+                  </Col>
+                </Row>
+              )}
             </Col>
           </Row>
-          <br />
-          {this.state.authorized ? (
-            <div>
-              <h3> Want to add more info?</h3>
-              <NavLink
-                to={`/user/${this.props.match.params.id}/book/${
-                  this.props.match.params.bookId
-                }/update`}
-              >
-                <Button className="btnSignIn" sz="lg">
-                  Click here
-                </Button>
-              </NavLink>
-              <br />
-            </div>
-          ) : (
-            <Row>
-              <Col>
-                <h3>
-                  Check <img src="/OverDrive_Logo.png" alt="OverDrive Logo" />
-                </h3>
-                <Form onSubmit={this.checkAvailability}>
-                  <Form.Group controlId="library">
-                    <Form.Label>Choose a Library</Form.Label>
-                    <Form.Control
-                      as="select"
-                      value={this.state.library}
-                      onChange={this.handleSelect}
-                    >
-                      <option value="2931">Berkeley</option>
-                      <option value="2094">Oakland</option>
-                      <option value="1683">San Francisco</option>
-                    </Form.Control>
-                  </Form.Group>
-                  <Button
-                    type="Submit"
-                    className="btnSignIn"
-                    onClick={this.checkAvailability}
-                  >
-                    Submit
+          <Col>
+            {this.state.authorized && (
+              <div>
+                <h3> Want to add more info?</h3>
+                <NavLink
+                  to={`/user/${this.props.match.params.id}/book/${
+                    this.props.match.params.bookId
+                  }/update`}
+                >
+                  <Button className="btnSignIn" sz="lg">
+                    Click here
                   </Button>
-                </Form>
+                </NavLink>
                 <br />
-                {this.state.clickedCheck && <span>loading...</span>}
-                {this.state.overDriveData &&
-                  !this.state.clickedCheck &&
-                  !this.state.availabilityType && (
-                    <span>
-                      {this.state.title} is not available at your library{' '}
-                    </span>
-                  )}
-                {this.state.overDriveData &&
-                  !this.state.clickedCheck &&
-                  this.state.availabilityType && (
-                    <Col>
-                      {this.state.available ? (
-                        <Col>
-                          <Row>{this.state.title} is available</Row>
-                          <Row>
-                            Click <a href={this.state.link}>here</a> to check it
-                            out
-                          </Row>
-                          <Row>Copies Owned: {this.state.copiesOwned}</Row>
-                          <Row>
-                            Copies Available: {this.state.copiesAvailable}
-                          </Row>
-                          <Row>Number of Holds: {this.state.numberOfHolds}</Row>
-                        </Col>
-                      ) : (
-                        <Col>
-                          <Row>
-                            {this.state.title} is not currently available
-                          </Row>
-                          <Row>
-                            Click <a href={this.state.link}>here</a> to place a
-                            hold
-                          </Row>
-                          <Row>Copies Owned: {this.state.copiesOwned}</Row>
-                          <Row>
-                            Copies Available: {this.state.copiesAvailable}
-                          </Row>
-                          <Row>Number of Holds: {this.state.numberOfHolds}</Row>
-                        </Col>
-                      )}
-                    </Col>
-                  )}
-              </Col>
-              <Col>
-                <h3> Add this title to your library?</h3>
-                {this.state.clickedAdd ? (
-                  <p>Book has been added to your library</p>
-                ) : (
-                  <Button className="btnSignIn" onClick={this.addTitle}>
-                    Click Me
-                  </Button>
-                )}
-              </Col>
-            </Row>
-          )}
-          <br />
+              </div>
+            )}
+          </Col>
         </div>
       </Container>
     )

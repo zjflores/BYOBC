@@ -102,7 +102,7 @@ a {
 .bookInfo {
   margin-top: 30px;
   margin-bottom: 30px;
-  background-color: #177e89;
+  background-color: #b4b3b4;
   border-color: #db3a34;
   border-style: solid;
   border-width: 3px;
@@ -114,7 +114,7 @@ a {
   color: #323031;
 }
 .bookCols {
-  padding-left: 120px;
+  padding-left: 80px;
 }
 
 .trashButton {
@@ -196,6 +196,23 @@ a {
   color: #db3a34;
   margin-top: 5px;
   margin-right: 5px;
+}
+.bookLink {
+  margin-left: 5px;
+}
+.overdriveForm {
+  display: inline-block;
+  width: 35%;
+}
+.overdriveLogo {
+  margin-bottom: 7px;
+  margin-left: 3px;
+  margin-top: 2px;
+}
+.overdriveLink {
+  margin-left: 3px;
+  margin-right: 3px;
+  color: #084c61;
 }
 
 /* colors {

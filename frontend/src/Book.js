@@ -108,7 +108,7 @@ class Book extends Component {
                   className="updateFormBtn"
                   onClick={this.handleSaveUpdate}
                 >
-                  <i class="fab fa-telegram-plane" />
+                  <i class="fas fa-save" />
                 </Button>
               </Col>
             </Row>
@@ -126,7 +126,10 @@ class Book extends Component {
             <Button className="updateButton" onClick={this.handleUpdateBook}>
               <i className="fas fa-pencil-alt" />
             </Button>
-            <NavLink to={`user/${this.props.userId}/book/${this.props.bookId}`}>
+            <NavLink
+              className="bookLink"
+              to={`user/${this.props.userId}/book/${this.props.bookId}`}
+            >
               {this.props.title} - {this.props.author}
             </NavLink>
           </Row>
