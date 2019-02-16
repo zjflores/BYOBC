@@ -19,6 +19,12 @@ class BookInfo extends Component {
       clickedCheck: false,
       clickedAdd: false,
       library: '2931',
+      overDriveData: false,
+      availabilityType: false,
+      copiesOwned: '',
+      copiesAvailable: '',
+      numberOfHolds: '',
+      link: '',
     }
     this.handleSelect = this.handleSelect.bind(this)
     this.getAuthorization = this.getAuthorization.bind(this)
@@ -38,6 +44,11 @@ class BookInfo extends Component {
   checkAvailability(event) {
     event.preventDefault()
     this.setState({ clickedCheck: true })
+    this.setState({ availabilityType: false })
+    this.setState({ copiesOwned: '' })
+    this.setState({ copiesAvailable: '' })
+    this.setState({ numberOfHolds: '' })
+    this.setState({ link: '' })
 
     fetch('http://localhost:5000/check-library', {
       method: 'POST',
@@ -55,12 +66,19 @@ class BookInfo extends Component {
       .then(response => response.json())
       .then(data => {
         console.log(data)
-
+        this.setState({ clickedCheck: false })
         this.setState({ available: data.available })
+        if (data.availabilityType) {
+          this.setState({ availabilityType: true })
+          this.setState({ copiesOwned: data.copiesOwned })
+          this.setState({ copiesAvailable: data.copiesAvailable })
+          this.setState({ numberOfHolds: data.numberOfHolds })
+          this.setState({ link: data.link })
+        }
       })
       .catch(error => console.error(error))
       .finally(() => {
-        this.setState({ clickedCheck: false })
+        this.setState({ overDriveData: true })
       })
   }
 
@@ -80,7 +98,6 @@ class BookInfo extends Component {
       .then(response => response.json())
       .then(data => {
         console.log(data)
-        this.setState({ title: data })
         this.setState({ clickedAdd: true })
       })
       .catch(error => console.error(error))
@@ -293,13 +310,14 @@ class BookInfo extends Component {
                 return (
                   <div key={reader.id}>
                     <Row>
-                      <NavLink
+                      {/* <NavLink
                         to={`/user/${reader.id}/book/${
                           this.props.match.params.bookId
                         }`}
                       >
                         {reader.name}
-                      </NavLink>
+                      </NavLink> */}
+                      {reader.name}
                     </Row>
                   </div>
                 )
@@ -327,7 +345,6 @@ class BookInfo extends Component {
                 <h3>
                   Check <img src="/OverDrive_Logo.png" alt="OverDrive Logo" />
                 </h3>
-                {/* Render button if not clicked render results if clicked */}
                 <Form onSubmit={this.checkAvailability}>
                   <Form.Group controlId="library">
                     <Form.Label>Choose a Library</Form.Label>
@@ -349,7 +366,50 @@ class BookInfo extends Component {
                     Submit
                   </Button>
                 </Form>
+                <br />
                 {this.state.clickedCheck && <span>loading...</span>}
+                {this.state.overDriveData &&
+                  !this.state.clickedCheck &&
+                  !this.state.availabilityType && (
+                    <span>
+                      {this.state.title} is not available at your library{' '}
+                    </span>
+                  )}
+                {this.state.overDriveData &&
+                  !this.state.clickedCheck &&
+                  this.state.availabilityType && (
+                    <Col>
+                      {this.state.available ? (
+                        <Col>
+                          <Row>{this.state.title} is available</Row>
+                          <Row>
+                            Click <a href={this.state.link}>here</a> to check it
+                            out
+                          </Row>
+                          <Row>Copies Owned: {this.state.copiesOwned}</Row>
+                          <Row>
+                            Copies Available: {this.state.copiesAvailable}
+                          </Row>
+                          <Row>Number of Holds: {this.state.numberOfHolds}</Row>
+                        </Col>
+                      ) : (
+                        <Col>
+                          <Row>
+                            {this.state.title} is not currently available
+                          </Row>
+                          <Row>
+                            Click <a href={this.state.link}>here</a> to place a
+                            hold
+                          </Row>
+                          <Row>Copies Owned: {this.state.copiesOwned}</Row>
+                          <Row>
+                            Copies Available: {this.state.copiesAvailable}
+                          </Row>
+                          <Row>Number of Holds: {this.state.numberOfHolds}</Row>
+                        </Col>
+                      )}
+                    </Col>
+                  )}
               </Col>
               <Col>
                 <h3> Add this title to your library?</h3>
