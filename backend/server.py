@@ -505,7 +505,6 @@ def check_overdrive():
 
     headers = {b'Authorization': formatted,
                b'Content-Type': b'application/x-www-form-urlencoded;charset=UTF-8'}
-    # payload = {b'grant_type', b'client_credentials'}
     payload = b'grant_type=client_credentials'
 
     r = requests.post(b"https://oauth.overdrive.com/token",
@@ -548,7 +547,7 @@ def search_overdrive(headers, title, url):
         for product in returned['products']:
             if product['mediaType'] == 'eBook':
                 url = product['links']['availability']['href']
-                link = product['contentDetails']['href']
+                link = product['contentDetails'][0]['href']
                 return check_availability(headers, url, link)
     return jsonify({'available': 'false' })
 

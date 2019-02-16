@@ -100,15 +100,22 @@ class BookUser(db.Model):
 def connect_to_db(app):
     """Connect the database to our Flask app."""
 
-    # Configure to use our PstgreSQL database
-    uri = 'postgresql://{}:{}@localhost/books'
-    uri = uri.format(postgres.key, postgres.secret)
+    # # Configure to use our PstgreSQL database
+    # Docker postgres config
+    # uri = 'postgresql://{}:{}@localhost/books'
+    # uri = uri.format(postgres.key, postgres.secret)
 
-    if not database_exists(uri):
-        create_database(uri)
+    # if not database_exists(uri):
+    #     create_database(uri)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = uri
+    # app.config['SQLALCHEMY_DATABASE_URI'] = uri
+    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # db.app = app
+    # db.init_app(app)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///books'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
     db.app = app
     db.init_app(app)
 

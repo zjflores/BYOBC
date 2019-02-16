@@ -81,6 +81,7 @@ class BookInfo extends Component {
       .then(data => {
         console.log(data)
         this.setState({ title: data })
+        this.setState({ clickedAdd: true })
       })
       .catch(error => console.error(error))
   }
@@ -324,7 +325,7 @@ class BookInfo extends Component {
             <Row>
               <Col>
                 <h3>
-                  Check <img src="/OverDrive_Logo.png" alt="OverDrive Logo" />{' '}
+                  Check <img src="/OverDrive_Logo.png" alt="OverDrive Logo" />
                 </h3>
                 {/* Render button if not clicked render results if clicked */}
                 <Form onSubmit={this.checkAvailability}>
@@ -351,11 +352,14 @@ class BookInfo extends Component {
                 {this.state.clickedCheck && <span>loading...</span>}
               </Col>
               <Col>
-                {/* Only render if it's not your user id */}
                 <h3> Add this title to your library?</h3>
-                <Button className="btnSignIn" onClick={this.addTitle}>
-                  Click Me
-                </Button>
+                {this.state.clickedAdd ? (
+                  <p>Book has been added to your library</p>
+                ) : (
+                  <Button className="btnSignIn" onClick={this.addTitle}>
+                    Click Me
+                  </Button>
+                )}
               </Col>
             </Row>
           )}
