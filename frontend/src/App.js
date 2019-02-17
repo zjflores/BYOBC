@@ -52,7 +52,11 @@ class App extends React.Component {
             <Route path="/login" component={this.renderLogin} />
             <Route path="/books" component={BookList} />
             <Route path="/user/:id/book/:bookId" component={BookInfo} />
-            <Route path="/user/:id/book/:bookId/update" component={BookForms} />
+            <Route
+              exact
+              path="/user/:id/book/:bookId/update"
+              component={BookForms}
+            />
             <Route path="/users" component={UserList} />
             <Route path="/user/:id/books" component={UserBooks} />
           </div>

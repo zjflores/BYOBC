@@ -218,7 +218,6 @@ def delete_book():
 
     data = request.get_json()
     print(data)
-    print(session)
 
     user_book = BookUser.query.filter(BookUser.book_id == data["id"]).one()
     db.session.delete(user_book)
