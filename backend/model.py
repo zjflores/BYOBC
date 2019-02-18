@@ -49,6 +49,7 @@ class BookGenre(db.Model):
     genre_id = db.Column(db.Integer,
                          db.ForeignKey('genres.id'),
                          nullable=False)
+    UniqueConstraint(book_id, genre_id)
 
     def __repr__(self):
         return "<BookGenre id={} Book id={} Genre id={}>".format(

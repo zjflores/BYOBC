@@ -51,7 +51,7 @@ class App extends React.Component {
             <Route path="/register" component={this.renderRegister} />
             <Route path="/login" component={this.renderLogin} />
             <Route path="/books" component={BookList} />
-            <Route path="/user/:id/book/:bookId" component={BookInfo} />
+            <Route exact path="/user/:id/book/:bookId" component={BookInfo} />
             <Route
               exact
               path="/user/:id/book/:bookId/update"

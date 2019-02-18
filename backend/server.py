@@ -392,6 +392,7 @@ def set_end_date():
 
     book = BookUser.query.filter(BookUser.book_id == data["id"]).one()
     book.end_date = data["end"]
+    print(book.end_date)
     db.session.commit()
     return jsonify("End date added")
 

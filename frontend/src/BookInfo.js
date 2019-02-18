@@ -234,7 +234,7 @@ class BookInfo extends Component {
         console.log(data)
         if (data != null) {
           data = moment(data).format('MMMM Do gggg')
-          this.setState({ startDate: data })
+          this.setState({ endDate: data })
         }
       })
       .catch(error => console.error(error))
