@@ -50,6 +50,7 @@ class Login extends Component {
       .then(data => {
         console.log(data)
       })
+      .finally(localStorage.setItem('isLoggedIn', true))
       .catch(error => console.error(error))
   }
   render() {

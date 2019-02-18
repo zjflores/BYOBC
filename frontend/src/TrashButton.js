@@ -13,6 +13,7 @@ class TrashButton extends Component {
     fetch('http://localhost:5000/delete-book', {
       method: 'POST',
       mode: 'cors', // no-cors, cors, *same-origin
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         // "Content-Type": "application/x-www-form-urlencoded",

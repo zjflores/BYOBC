@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import FilteredMultiSelect from 'react-filtered-multiselect'
 import { Col, Row, Container, Form, Button } from 'react-bootstrap'
 import './BookForm.css'
-import NavLink from 'react-bootstrap/NavLink'
+// import Link from 'react-bootstrap/NavLink'
 
 class BookForms extends Component {
   constructor(props) {
@@ -245,27 +245,27 @@ class BookForms extends Component {
                     </Button>
                   </Row>
                 </Form>
-                <br />
+                {/* <br />
                 <Row>
                   {this.state.submitClicked && (
-                    <Col>
-                      <Row>
-                        <h3>Success!</h3>
-                      </Row>
-                      <Row>
-                        <NavLink
-                          to={`/user/${this.props.match.params.id}/book/${
-                            this.props.match.params.bookId
-                          }`}
-                        >
-                          <Button className="btnSignIn" sz="lg">
-                            Back to book
-                          </Button>
-                        </NavLink>
-                      </Row>
-                    </Col>
+                    <Row>
+                      <Col>
+                        <Row>Success!</Row>
+                        <Row>
+                          <Link
+                            to={`/user/${this.props.match.params.id}/book/${
+                              this.props.match.params.bookId
+                            }`}
+                          >
+                            <Button className="btnSignIn" sz="lg">
+                              Back to book
+                            </Button>
+                          </Link>
+                        </Row>
+                      </Col>
+                    </Row>
                   )}
-                </Row>
+                </Row> */}
               </Col>
             </Row>
           </div>

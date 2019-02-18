@@ -213,13 +213,14 @@ def add_book():
 
 
 @app.route('/delete-book', methods=["POST"])
+@cross_origin()
 def delete_book():
     """Remove Book from db"""
 
     data = request.get_json()
     print(data)
 
-    user_book = BookUser.query.filter(BookUser.book_id == data["id"]).one()
+    user_book = BookUser.query.filter((BookUser.book_id == data["id"]) & (BookUser.user_id == session['user_id'])).one()
     db.session.delete(user_book)
     print(user_book)
     db.session.commit()
@@ -442,6 +443,7 @@ def get_authorization():
         return jsonify("woo"), status.HTTP_200_OK
     else:
         return jsonify("nope"), status.HTTP_401_UNAUTHORIZED
+
 
 
 ################################################################################

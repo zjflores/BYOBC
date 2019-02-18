@@ -18,12 +18,22 @@ class App extends React.Component {
     this.state = {
       isLoggedIn: false,
     }
+    this.getAuth = this.getAuth.bind(this)
     this.onLogin = this.onLogin.bind(this)
     this.onLogout = this.onLogout.bind(this)
     this.renderLogin = this.renderLogin.bind(this)
     this.renderRegister = this.renderRegister.bind(this)
     this.renderHome = this.renderHome.bind(this)
   }
+  getAuth = () => {
+    const loggedIn = localStorage.getItem('isLoggedIn')
+    console.log(loggedIn)
+    if (loggedIn === true) {
+      this.setState({ isLoggedIn: true })
+    }
+    console.log(this.state.isLoggedIn)
+  }
+
   onLogin() {
     this.setState({ isLoggedIn: true })
   }
@@ -42,6 +52,9 @@ class App extends React.Component {
   renderHome() {
     return <Home onLogout={this.onLogout} isLoggedIn={this.state.isLoggedIn} />
   }
+  componentDidMount() {
+    this.getAuth()
+  }
   render() {
     return (
       <Router>
@@ -51,7 +64,7 @@ class App extends React.Component {
             <Route path="/register" component={this.renderRegister} />
             <Route path="/login" component={this.renderLogin} />
             <Route path="/books" component={BookList} />
-            <Route exact path="/user/:id/book/:bookId" component={BookInfo} />
+            <Route path="/user/:id/book/:bookId" component={BookInfo} />
             <Route
               exact
               path="/user/:id/book/:bookId/update"
