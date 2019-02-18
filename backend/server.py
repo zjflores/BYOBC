@@ -153,6 +153,15 @@ def logout():
     session.clear()
     return jsonify("User has been logged out")
 
+@app.route('/get-auth', methods=['POST'])
+@cross_origin()
+def is_logged_in():
+    print(session)
+    if 'user_id' in session:
+        return jsonify(True)
+    else: 
+        return jsonift(False)
+
 
 ################################################################################
 ############################## BOOK ROUTES #################################### 

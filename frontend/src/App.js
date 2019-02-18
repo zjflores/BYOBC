@@ -25,13 +25,30 @@ class App extends React.Component {
     this.renderRegister = this.renderRegister.bind(this)
     this.renderHome = this.renderHome.bind(this)
   }
-  getAuth = () => {
-    const loggedIn = localStorage.getItem('isLoggedIn')
-    console.log(loggedIn)
-    if (loggedIn === true) {
-      this.setState({ isLoggedIn: true })
-    }
-    console.log(this.state.isLoggedIn)
+  // getAuth = () => {
+  //   const loggedIn = localStorage.getItem('isLoggedIn')
+  //   console.log(loggedIn)
+  //   if (loggedIn === true) {
+  //     this.setState({ isLoggedIn: true })
+  //   }
+  //   console.log(this.state.isLoggedIn)
+  // }
+
+  getAuth() {
+    fetch('http://localhost:5000/get-auth', {
+      method: 'POST',
+      mode: 'cors', // no-cors, cors, *same-origin
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        // "Content-Type": "application/x-www-form-urlencoded",
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        this.setState({ isLoggedIn: data })
+      })
   }
 
   onLogin() {
