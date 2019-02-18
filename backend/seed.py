@@ -68,11 +68,14 @@ def load_user_books():
     bookuser_rows = csv.DictReader(open('data/bookuser.csv'))
 
     for bookuser in bookuser_rows:
+        print(bookuser["title"])
         user = User.query.filter(User.fname == bookuser["fname"]).one()
-        book = Book.query.filter(Book.title == bookuser["title"]).first()
+        book = Book.query.filter(Book.title == bookuser["title"]).one()
 
         new_bookuser = BookUser(user_id=user.id,
-                                book_id=book.id)
+                                book_id=book.id,
+                                start_date=bookuser["start"],
+                                end_date=bookuser["end"])
         db.session.add(new_bookuser)
     db.session.commit()
 
@@ -88,8 +91,9 @@ def load_bookgenre():
     bookgenre_rows = csv.DictReader(open('data/bookgenre.csv'))
 
     for bookgenre in bookgenre_rows:
-        book = Book.query.filter(Book.title == bookgenre["book"]).first()
-        genre = Genre.query.filter(Genre.genre == bookgenre["genre"]).first()
+        print(bookgenre["genre"])
+        book = Book.query.filter(Book.title == bookgenre["book"]).one()
+        genre = Genre.query.filter(Genre.genre == bookgenre["genre"]).one()
 
         new_bookgenre = BookGenre(book_id=book.id,
                                   genre_id=genre.id)
@@ -100,6 +104,7 @@ def load_bookgenre():
 def get_bestsellers():
     """Get bestseller history from NYT Books API"""
 
+    print("BestSellers")
     payload = {'api-key': nytimes.key}
 
     r = requests.get(

@@ -1,27 +1,31 @@
-fname,title
-Evante,Harry Potter and the Sorcer's Stone
-Evante,Harry Potter and the Chamber of Secrets
-Evante,Harry Potter and the Prisoner of Azkaban
-Evante,Harry Potter and the Goblet of Fire
-Evante,Harry Potter and the Order of the Phoenix
-Zeezy,Red Dragon
-Zeezy,Nobody is Ever Missing
-Zeezy,The Deeper the Water The Uglier The Fish
-Zeezy,The Bell Jar
-Zeezy,A Heartbreaking Work of Staggering Genius
-Charles,Star Wars: Lost Star
-Charles,Pride and Prejudice
-Charles,Wuthering Heights
-Charles,Jane Eyre
-Charles,Sherlock Holmes
-Charles,The Picture of Dorian Gray
-Ben,Finite-Dimensional Variational Inequalites and Complementarity Problems
-Ben,Theoretical Numerical Analysis A Functional Analysis Framework
-Ben,Advanced Calculus An Introduction to Linear Analysis
-Ben,Partial Differential Equations
-Ben,The Mathematical Theory of Finite Element Methods
-Jazz,Tuesdays with Morrie
-Jazz,The Great Gatsby
-Jazz,The Call of Everest
-Jazz,Sherlock Holmes
-Jazz,A Year Off
+fname,title,start,end
+Zsasha,Red Dragon,2018-07-18,2018-08-02
+Zsasha,Nobody is Ever Missing,2018-08-09,2018-09-22
+Zsasha,The Deeper the Water The Uglier The Fish,2018-09-27,2018-09-29
+Zsasha,The Bell Jar,2018-11-15,2019-02-01
+Zsasha,A Heartbreaking Work of Staggering Genius,2018-10-01,2018-10-31
+Blaze,Angela's Ashes,2018-07-15,2018-08-01
+Blaze,The Fingersmith,2018-08-07,2018-08-28
+Blaze,Anne of Green Gables,2018-09-01,2018-09-18,
+Blaze,Neverwhere,2018-09-20,2018-10-16
+Blaze,Abarat,2018-10-19,2018-10-31
+Moe,Dune,2018-07-22,2018-08-19
+Moe,The Tale of Genji,2018-08-22,2019-09-11
+Moe,Good Omens,2018-09-27,2018-10-29,
+Moe,The Prince,2018-11-02,2018-12-14
+Moe,Stranger in a Strange Land,2019-01-05,2019-02-12
+Kunal,I'll Be Gone in the Dark,2018-10-03,2018-10-31
+Kunal,The Autobiography of Red,2018-08-31,2018-09-24
+Kunal,Helter Skelter,2018-11-03,2018-12-13
+Kunal,The Moon is a Harsh Mistress,2018-12-29,2019-01-31
+Kunal,Dune,2019-02-02,2019-02-16
+Charles,Pride and Prejudice,2018-07-02,2018-07-23
+Charles,Wuthering Heights,2018-07-30,2018-08-15
+Charles,Jane Eyre,2018-08-23,2018-09-08
+Charles,Sherlock Holmes,2018-09-16,2018-10-10
+Charles,The Picture of Dorian Gray,2018-10-13,2018-10-31
+James,Tuesdays with Morrie,2018-11-01,2018-11-28
+James,The Great Gatsby,2018-10-09,2018-10-23
+James,The Call of Everest,2018-12-05,2019-01-02
+James,Sherlock Holmes,2018-09-11,2018-10-01
+James,A Year Off,2019-01-11,2019-02-03

@@ -9,7 +9,6 @@ from data.keys.secret_keys import flask, overdrive
 from random import choice
 import requests
 import base64
-# from flask_oauthlib.provider import OAuth2Provider
 
 ################################################################################
 ################################# SETUP ####################################### 
@@ -160,7 +159,7 @@ def is_logged_in():
     if 'user_id' in session:
         return jsonify(True)
     else: 
-        return jsonift(False)
+        return jsonify(False)
 
 
 ################################################################################

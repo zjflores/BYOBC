@@ -1,29 +1,62 @@
 book,genre
-Harry Potter and the Sorcer's Stone,Fantasy
-Harry Potter and the Sorcer's Stone,Young Adult
-Harry Potter and the Chamber of Secrets,Fantasy
-Harry Potter and the Prisoner of Azkaban,Fantasy
-Harry Potter and the Goblet of Fire,Fantasy
-Harry Potter and the Order of the Phoenix,Fantasy
 Red Dragon,Crime
-Nobody is Ever Missing,Drama
-The Deeper the Water The Uglier The Fish,Drama
+Red Dragon,Horror
+Red Dragon,Thriller
+Nobody is Ever Missing,Fiction
+Nobody is Ever Missing,Contemporary
+The Deeper the Water The Uglier The Fish,Fiction
+The Deeper the Water The Uglier The Fish,Contemporary
 The Bell Jar,Classic
+The Bell Jar,Fiction
 A Heartbreaking Work of Staggering Genius,Memoir
-Star Wars: Lost Star,Fantasy
 Pride and Prejudice,Classic
+Pride and Prejudice,Fiction,
+Pride and Prejudice,Romance
 Wuthering Heights,Classic
+Wuthering Heights,Fiction
+Wuthering Heights,Romance
+Wuthering Heights,Gothic
+Wuthering Heights,Historical Fiction
 Jane Eyre,Classic
+Jane Eyre,Fiction
+Jane Eyre,Romance
+Sherlock Holmes,Classic
 Sherlock Holmes,Mystery
 The Picture of Dorian Gray,Classic
-Finite-Dimensional Variational Inequalites and Complementarity Problems,Textbook
-Theoretical Numerical Analysis A Functional Analysis Framework,Textbook
-Advanced Calculus An Introduction to Linear Analysis,Textbook
-Partial Differential Equations,Textbook
-The Mathematical Theory of Finite Element Methods,Textbook
-Tuesdays with Morrie,Drama
+The Picture of Dorian Gray,Fiction
+The Picture of Dorian Gray,Horror
+Tuesdays with Morrie,Nonfiction
+Tuesdays with Morrie,Memoir
 The Great Gatsby,Classic
-The Call of Everest,Biography
-A Year Off,Essay
+The Great Gatsby,Fiction
+The Call of Everest,Nonfiction
+The Call of Everest,Adventure
+A Year Off,Nonfiction
+A Year Off,Travel
+Angela's Ashes,Nonfiction
+Angela's Ashes,Memoir
+The Fingersmith,Historical Fiction
+Anne of Green Gables,Classic
+Anne of Green Gables,Fiction
+Anne of Green Gables,Young Adult
+Neverwhere,Fantasy
+Neverwhere,Fiction
+Abarat,Fantasy
+Abarat,Young Adult
+Dune,Science Fiction
+The Tale of Genji,Epic
+Good Omens,Horror
+Good Omens,Fantasy
+Good Omens,Comedy
+The Prince,Nonfiction
+Stranger in a Strange Land,Science Fiction
+I'll Be Gone in the Dark,Nonfiction
+I'll Be Gone in the Dark,Mystery
+I'll Be Gone in the Dark,Crime
+The Autobiography of Red,Poetry
+The Autobiography of Red,Romance
+Helter Skelter,Crime
+Helter Skelter,Nonfiction
+The Moon is a Harsh Mistress,Science Fiction
 
 

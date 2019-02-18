@@ -249,9 +249,7 @@ class BookForms extends Component {
                 <Row>
                   {this.state.submitClicked && (
                     <Col>
-                      <Row>
-                        <h3>Success!</h3>
-                      </Row>
+                      <Row>Success!</Row>
                       <Row>
                         <NavLink
                           to={`/user/${this.props.match.params.id}/book/${
